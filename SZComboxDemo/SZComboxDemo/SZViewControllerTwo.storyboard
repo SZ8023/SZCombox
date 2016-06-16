@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Dr6-Mi-j1o">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller Two-->
+        <scene sceneID="egn-nP-7Bv">
+            <objects>
+                <viewController id="Dr6-Mi-j1o" customClass="SZViewControllerTwo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f3b-cd-As4"/>
+                        <viewControllerLayoutGuide type="bottom" id="QsY-Yp-nQK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CuS-RD-j9h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mtd-LF-eCa" customClass="SZCombox">
+                                <rect key="frame" x="77" y="81" width="260" height="40"/>
+                                <color key="backgroundColor" red="0.29583701759766046" green="0.59064956136332536" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="combox" destination="mtd-LF-eCa" id="B4X-ig-jb3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lhA-aD-6eP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="275.5" y="327.5"/>
+        </scene>
+    </scenes>
+</document>
