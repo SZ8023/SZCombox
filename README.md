@@ -1,11 +1,8 @@
 ### SZCombox
 
-
 下拉列表，下拉列表可以选择显示文字，也可以同时显示文字和图片
 
-
-![显示图片](https://github.com/SZ8023/SZCombox/screenshot/combox.gif)
-
+![显示图片](https://github.com/SZ8023/SZCombox/blob/master/screenshot/combox.gif)
 
 ---
 
