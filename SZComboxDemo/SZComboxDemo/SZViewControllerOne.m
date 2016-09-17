@@ -41,7 +41,10 @@
         self.combox = combox;
         [self.view addSubview:combox];
         self.combox.comboxDataArr = @[@"连云港",@"徐州",@"盐城",@"宿迁",@"南京",@"无锡",@"苏州",@"常州",@"南通"];
-        self.combox.showTableRows = 7;
+        self.combox.showTableRows = 0;
+        [self.combox comboxTapClick:^(NSInteger selectedIndex, NSString *selectedText, UIImage *selectedImage) {
+            NSLog(@"selectedIndex = %zd , selectedText = %@ , selectedImage = %@",selectedIndex,selectedText,selectedImage);
+        }];
     } else {
         SZCombox *combox =  [[SZCombox alloc] initWithFrame:CGRectMake(30, 380,self.view.bounds.size.width - 60, 50)];
         self.combox = combox;
@@ -54,6 +57,10 @@
             [imgArr addObject:img];
         }
         self.combox.comboxImgArr = [imgArr copy];
+        [self.combox comboxTapClick:^(NSInteger selectedIndex, NSString *selectedText, UIImage *selectedImage) {
+            NSLog(@"selectedIndex = %zd , selectedText = %@ , selectedImage = %@",selectedIndex,selectedText,selectedImage);
+        }];
+
     }
 }
 

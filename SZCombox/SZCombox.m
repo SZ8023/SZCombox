@@ -21,6 +21,7 @@
 @property (nonatomic, weak) UIImageView *imgView;
 @property (nonatomic, assign) CGRect selectedImgFrame;
 @property (nonatomic, assign) CGRect selectedTextFrame;
+@property (nonatomic ,copy) void (^comboxTapClick)(NSInteger selectedIndex,NSString *selectedText,UIImage *selectedImage);
 
 @end
 
@@ -45,7 +46,11 @@
 }
 
 - (void)initSubView {
-    self.selectedTextFrame = CGRectMake(16, 0, self.frame.size.width, self.frame.size.height);
+    self.selectedIndex = -1;
+    self.selectedText = nil;
+    self.selectedImage = nil;
+    
+    self.selectedTextFrame = CGRectMake(16, 0, ComboxWidth, ComboxHeight);
     self.layer.borderWidth = 1.0f;
     self.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.userInteractionEnabled = YES;
@@ -54,18 +59,13 @@
     self.backgroundColor = [UIColor whiteColor];
     
     self.text = @"-- 请选择 --";
-
-    CGFloat imgH = ComboxHeight * 0.5;
-    CGFloat imgW = imgH;
-    CGFloat imgX = ComboxWidth - imgH * 1.5;
-    CGFloat imgY = imgH * 0.5;
     
-    UIImageView *dropImg= [[UIImageView alloc] initWithFrame:CGRectMake(imgX, imgY, imgW, imgH)];
+    UIImageView *dropImg= [[UIImageView alloc] init];
     self.dropImg = dropImg;
     self.dropImg.image = [UIImage imageNamed:@"szResource.bundle/triangle_down.png"];
     [self addSubview:self.dropImg];
     
-    self.viewControl = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    self.viewControl = [[UIControl alloc] init];
     [self.viewControl addTarget:self action:@selector(controlPressed) forControlEvents:UIControlEventTouchUpInside];
     self.viewControl.alpha = 1.0f;
     
@@ -85,12 +85,19 @@
     
 }
 
-- (void)setShowTableRows:(NSInteger)showTableRows {
-    _showTableRows  = showTableRows;
-}
+
 
 - (void)layoutSubviews {
-    [super layoutSubviews];    
+    [super layoutSubviews];
+    
+    CGFloat imgH = ComboxHeight * 0.5;
+    CGFloat imgW = imgH;
+    CGFloat imgX = ComboxWidth - imgH * 1.5;
+    CGFloat imgY = imgH * 0.5;
+    self.dropImg.frame = CGRectMake(imgX, imgY, imgW, imgH);
+    
+    self.viewControl.frame = CGRectMake(0, 0, SZWIDTH, SZHEIGHT);
+    
     [self bringSubviewToFront:self.dropImg];
     [self bringSubviewToFront:self.imgView];
 }
@@ -119,6 +126,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    self.selectedIndex = indexPath.row;
+    
     self.selectedText = self.comboxDataArr[indexPath.row];
     self.text = self.selectedText;
     
@@ -135,6 +144,15 @@
         [self addSubview:self.imgView];
     }
     [self controlPressed];
+    
+    if (self.comboxTapClick) {
+        self.comboxTapClick(self.selectedIndex,self.selectedText,self.selectedImage);
+    }
+    
+}
+
+- (void)comboxTapClick:(void (^)(NSInteger, NSString *, UIImage *))comboxClick {
+    self.comboxTapClick = comboxClick;
 }
 
 
@@ -146,8 +164,11 @@
     
     CGFloat tabX = convertRect.origin.x;
     CGFloat tabY = convertRect.origin.y + convertRect.size.height;
+    if (self.showTableRows == 0) {
+        self.showTableRows = 6;
+    }
     CGFloat tabH = self.showTableRows * ComboxHeight;
-   
+    
     if ((tabY + tabH) > SZHEIGHT ) {
         self.tableView.frame = CGRectMake(tabX, tabY - convertRect.size.height/2, ComboxWidth, 0);
         [UIView animateWithDuration:0.5 animations:^{
@@ -175,6 +196,9 @@
     
     CGFloat tabX = convertRect.origin.x;
     CGFloat tabY = convertRect.origin.y + convertRect.size.height;
+    if (self.showTableRows == 0) {
+        self.showTableRows = 6;
+    }
     CGFloat tabH = self.showTableRows * ComboxHeight;
     
     if ((tabY + tabH) > SZHEIGHT ) {
