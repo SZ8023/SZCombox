@@ -24,6 +24,8 @@
 @property (nonatomic, copy) NSString *selectedText;
 /** 获取选中的图片 */
 @property (nonatomic, strong) UIImage *selectedImage;
+/** 测试提交 */
+@property (nonatomic, strong) UIView *testView;
 
 
 /**
